@@ -11,16 +11,31 @@ namespace Mono.Cecil.Fluent
 {
 	partial class FluentEmitter
 	{
-		private Action<Instruction> _emitAction;
 		internal Instruction LastEmittedInstruction = null;
 		internal readonly Queue<Func<FluentEmitter, bool>> PostEmitActions = new Queue<Func<FluentEmitter, bool>>(); 
+	    private void EmitAction(Instruction instruction)
+	    {
+	        if (AppendMode == AppendMode.Append)
+	        {
+                ILProcessor.Append(instruction);
+            }
+            else if (AppendMode == AppendMode.Insert)
+	        {
+	            if (LastEmittedInstruction == null)
+	            {
+	                ILProcessor.InsertBefore(Body.Instructions[0], instruction);
+	            }
+	            else
+	            {
+                    ILProcessor.InsertAfter(LastEmittedInstruction, instruction);
+                }
+            }
+	    }
 
 		public FluentEmitter Emit(Instruction instruction)
 		{
-			if (_emitAction == null)
-				_emitAction = i => MethodDefinition.Body.Instructions.Add(i);
+		    EmitAction(instruction);
 
-			_emitAction(instruction);
 			LastEmittedInstruction = instruction;
 			
 			while (PostEmitActions.Count != 0)

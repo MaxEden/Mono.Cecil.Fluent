@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Emit;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using Mono.Collections.Generic;
 
 namespace Mono.Cecil.Fluent
@@ -7,6 +8,8 @@ namespace Mono.Cecil.Fluent
 	public partial class FluentEmitter
 	{
 		public readonly ModuleDefinition Module;
+	    public readonly AppendMode AppendMode;
+        public readonly ILProcessor ILProcessor;
 
 		/// <summary>
 		/// Useful for Debugging.
@@ -37,12 +40,22 @@ namespace Mono.Cecil.Fluent
 		public Collection<VariableDefinition> Variables => MethodDefinition.Body.Variables;
 
         public StackValidationMode StackValidationMode = Config.DefaultStackValidationMode;
+	    
 
 		internal FluentEmitter(MethodDefinition methodDefinition)
-		{
-			MethodDefinition = methodDefinition;
-			Module = methodDefinition.Module;
-		}
+            :this(methodDefinition, AppendMode.Append, null)
+        { }
+
+	    internal FluentEmitter(MethodDefinition methodDefinition, AppendMode appendMode, Instruction lastInstruction)
+	    {
+	        MethodDefinition = methodDefinition;
+	        methodDefinition.Body.SimplifyMacros();
+	        Module = methodDefinition.Module;
+
+	        AppendMode = appendMode;
+	        LastEmittedInstruction = lastInstruction;
+	        ILProcessor = methodDefinition.Body.GetILProcessor();
+	    }
 
 	    public FluentEmitter SetStackValidationMode(StackValidationMode mode)
 	    {
@@ -92,6 +105,7 @@ namespace Mono.Cecil.Fluent
 
 	    public MethodDefinition EndEmitting()
 	    {
+            MethodDefinition.Body.OptimizeMacros();
             // todo: something to do here? e.g. stack validation ..
 	        return MethodDefinition;
 	    }

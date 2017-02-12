@@ -49,13 +49,7 @@ namespace Mono.Cecil.Fluent
 			lock (SyncRoot)
 				return module.Import(method);
 		}
-
-		public static TypeReference SafeImport(this ModuleDefinition module, TypeInfo type)
-		{
-			lock (SyncRoot)
-				return module.Import(type);
-		}
-
+        
 		public static MethodReference SafeImport(this ModuleDefinition module, ConstructorInfo constructor)
 		{
 			lock (SyncRoot)

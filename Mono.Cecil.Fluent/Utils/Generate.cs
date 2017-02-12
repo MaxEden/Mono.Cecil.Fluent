@@ -29,7 +29,7 @@ namespace Mono.Cecil.Fluent.Utils
 				return GenereateInternal(UsedClassNames);
 			}
 			
-			private static string GenereateInternal(ISet<string> used)
+			private static string GenereateInternal(HashSet<string> used)
 			{
 				var ret = "";
 				ret += IdentifierFirstLetterChars[Rnd.Next(0, IdentifierFirstLetterChars.Length - 1)];
