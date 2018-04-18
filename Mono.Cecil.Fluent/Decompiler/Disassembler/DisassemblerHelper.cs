@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -226,7 +227,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 				var at = (ArrayType)type;
 				at.ElementType.WriteTo(writer, syntaxForElementTypes);
 				writer.Write('[');
-				writer.Write(string.Join(", ", at.Dimensions));
+				writer.Write(string.Join(", ", at.Dimensions.Select(p=>p.ToString()).ToArray()));
 				writer.Write(']');
 			}
 			else if (type is GenericParameter)
@@ -307,50 +308,50 @@ namespace ICSharpCode.Decompiler.Disassembler
 		{
 			if (operand == null)
 				throw new ArgumentNullException(nameof(operand));
-			var targetInstruction = operand as Instruction;
-			if (targetInstruction != null)
+		    if (operand is Instruction targetInstruction)
 			{
 				WriteOffsetReference(writer, targetInstruction);
 				return;
 			}
-			var targetInstructions = operand as Instruction[];
-			if (targetInstructions != null)
+
+		    if (operand is Instruction[] targetInstructions)
 			{
 				WriteLabelList(writer, targetInstructions);
 				return;
 			}
-			var variableRef = operand as VariableReference;
-			if (variableRef != null)
+
+		    if (operand is VariableReference variableRef)
 			{
-			    writer.Write(string.IsNullOrEmpty(variableRef.Name) ? variableRef.Index.ToString() : Escape(variableRef.Name));
+
+                writer.Write(variableRef.Index.ToString());
 			    return;
 			}
-			var paramRef = operand as ParameterReference;
-			if (paramRef != null)
+
+		    if (operand is ParameterReference paramRef)
 			{
 			    writer.Write(string.IsNullOrEmpty(paramRef.Name) ? paramRef.Index.ToString() : Escape(paramRef.Name));
 			    return;
 			}
-			var methodRef = operand as MethodReference;
-			if (methodRef != null)
+
+		    if (operand is MethodReference methodRef)
 			{
 				methodRef.WriteTo(writer);
 				return;
 			}
-			var typeRef = operand as TypeReference;
-			if (typeRef != null)
+
+		    if (operand is TypeReference typeRef)
 			{
 				typeRef.WriteTo(writer, IlNameSyntax.TypeName);
 				return;
 			}
-			var fieldRef = operand as FieldReference;
-			if (fieldRef != null)
+
+		    if (operand is FieldReference fieldRef)
 			{
 				fieldRef.WriteTo(writer);
 				return;
 			}
-			var s = operand as string;
-			if (s != null)
+
+		    if (operand is string s)
 			{
 				writer.Write("\"" + ConvertString(s) + "\"");
 			}

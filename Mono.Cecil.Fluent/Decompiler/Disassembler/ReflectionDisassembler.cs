@@ -735,7 +735,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 					if (index > 0)
 						_o.WriteLine(",");
 					_o.Write(index == 0 ? "implements " : "           ");
-					type.Interfaces[index].WriteTo(_o, IlNameSyntax.TypeName);
+					type.Interfaces[index].InterfaceType.WriteTo(_o, IlNameSyntax.TypeName);
 				}
 				_o.WriteLine();
 				_o.Unindent();

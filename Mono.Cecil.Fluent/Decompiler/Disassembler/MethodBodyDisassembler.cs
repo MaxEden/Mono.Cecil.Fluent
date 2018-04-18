@@ -62,10 +62,11 @@ namespace ICSharpCode.Decompiler.Disassembler
 				{
 					_o.Write("[" + v.Index + "] ");
 					v.VariableType.WriteTo(_o);
-					if (!string.IsNullOrEmpty(v.Name))
+
+                    if (method.DebugInformation.TryGetName(v, out var name))
 					{
 						_o.Write(' ');
-						_o.Write(DisassemblerHelpers.Escape(v.Name));
+						_o.Write(DisassemblerHelpers.Escape(name));
 					}
 					if (v.Index + 1 < body.Variables.Count)
 						_o.Write(',');

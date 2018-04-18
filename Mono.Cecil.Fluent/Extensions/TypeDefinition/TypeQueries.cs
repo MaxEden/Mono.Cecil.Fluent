@@ -6,11 +6,17 @@ namespace Mono.Cecil.Fluent
 {
     public static partial class TypeDefinitionExtensions
     {
+
+        public static bool Implements<T>(this TypeReference type) where T : class
+        {
+            return Implements(type.Resolve(), typeof(T).FullName);
+        }
+
         public static bool Implements(this TypeDefinition type, string interfaceFullName)
         {
             try
             {
-                if (type.HasInterfaces && type.Interfaces.Any(p => p.FullName == interfaceFullName)) return true;
+                if (type.HasInterfaces && type.Interfaces.Any(p => p.InterfaceType.FullName == interfaceFullName)) return true;
                 if (type.BaseType == null) return false;
                 return Implements(type.BaseType.Resolve(), interfaceFullName);
             }
@@ -23,7 +29,13 @@ namespace Mono.Cecil.Fluent
         public static bool DerivedFrom(this TypeDefinition type, string typeFullName)
         {
             if (type.BaseType == null) return false;
+            if (type.BaseType.FullName == typeFullName) return true;
             return DerivedFrom(type.BaseType.Resolve(), typeFullName);
+        }
+
+        public static bool IsSubclassOf(this TypeDefinition type, TypeReference baseType)
+        {
+            return Implements(type, baseType.FullName) || DerivedFrom(type, baseType.FullName);
         }
 
         public static bool IsSubclassOf(this TypeDefinition type, string typeFullName)

@@ -12,8 +12,12 @@ namespace Mono.Cecil.Fluent
 		{
 			if(string.IsNullOrEmpty(varname))
 				throw new ArgumentException("varname cannot be null or empty");
-
-			var var = Variables.FirstOrDefault(v => v.Name == varname);
+            
+            var var = Variables.FirstOrDefault(v =>
+            {
+                this.MethodDefinition.DebugInformation.TryGetName(v, out var name);
+                return name == varname;
+            });
 
 			if (var == null)
 				throw new KeyNotFoundException($"found no variable with name '{varname}'");

@@ -35,9 +35,9 @@ namespace Mono.Cecil.Fluent
 			{
 				foreach (var @interface in _type.Interfaces)
 				{
-					var iface = importer.Load(@interface);
+					var iface = importer.Load(@interface.InterfaceType);
 					if (iface == null)
-						throw new Exception($"can not resolve interface type '{@interface.FullName}' in current app domain");
+						throw new Exception($"can not resolve interface type '{@interface.InterfaceType.FullName}' in current app domain");
                     interfaces.Add(iface);
 				}
 			}

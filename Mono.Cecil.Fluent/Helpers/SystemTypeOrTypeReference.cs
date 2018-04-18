@@ -5,31 +5,36 @@ namespace Mono.Cecil.Fluent
 {
     public sealed class SystemTypeOrTypeReference
     {
-        private readonly object _type;
+        private readonly Type          _type;
+        private readonly TypeReference _typeRef;
 
         internal SystemTypeOrTypeReference(Type t)
         {
-            if (t == null)
-                throw new ArgumentNullException();
+            if (t == null) throw new ArgumentNullException();
             _type = t;
         }
 
         internal SystemTypeOrTypeReference(TypeReference t)
         {
-            if(t == null)
-                throw new ArgumentNullException();
-            _type = t;
+            if (t == null) throw new ArgumentNullException();
+            _typeRef = t;
         }
 
         internal TypeReference GetTypeReference(ModuleDefinition module)
         {
-            var ret = _type as Type;
-            return ret != null 
-                ? module.SafeImport(ret) 
-                : module.SafeImport(_type as TypeReference);
+            if (_type != null) return module.SafeImport(_type);
+            if (_typeRef != null) return module.SafeImport(_typeRef);
+            throw new ArgumentException();
         }
 
-        public static implicit operator SystemTypeOrTypeReference(Type t) { return new SystemTypeOrTypeReference(t); }
-        public static implicit operator SystemTypeOrTypeReference(TypeReference t) { return new SystemTypeOrTypeReference(t); }
+        public static implicit operator SystemTypeOrTypeReference(Type t)
+        {
+            return new SystemTypeOrTypeReference(t);
+        }
+
+        public static implicit operator SystemTypeOrTypeReference(TypeReference t)
+        {
+            return new SystemTypeOrTypeReference(t);
+        }
     }
 }

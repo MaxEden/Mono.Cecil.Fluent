@@ -11,49 +11,49 @@ namespace Mono.Cecil.Fluent
 		public static TypeReference SafeImport(this ModuleDefinition module, Type type)
 		{
 			lock (SyncRoot)
-				return module.Import(type);
+				return module.ImportReference(type);
 		}
 
 		public static TypeReference SafeImport<T>(this ModuleDefinition module)
 		{
 			lock (SyncRoot)
-				return module.Import(typeof(T));
+				return module.ImportReference(typeof(T));
 		}
 
 		public static TypeReference SafeImport(this ModuleDefinition module, TypeReference type)
 		{
 			lock (SyncRoot)
-				return module.Import(type);
+				return module.ImportReference(type);
 		}
 
 		public static FieldReference SafeImport(this ModuleDefinition module, FieldReference field)
 		{
 			lock (SyncRoot)
-				return module.Import(field);
+				return module.ImportReference(field);
 		}
 
 		public static MethodReference SafeImport(this ModuleDefinition module, MethodReference method)
 		{
 			lock (SyncRoot)
-				return module.Import(method);
+				return module.ImportReference(method);
 		}
 
 		public static FieldReference SafeImport(this ModuleDefinition module, FieldInfo field)
 		{
 			lock (SyncRoot)
-				return module.Import(field);
+				return module.ImportReference(field);
 		}
 
 		public static MethodReference SafeImport(this ModuleDefinition module, MethodInfo method)
 		{
 			lock (SyncRoot)
-				return module.Import(method);
+				return module.ImportReference(method);
 		}
         
 		public static MethodReference SafeImport(this ModuleDefinition module, ConstructorInfo constructor)
 		{
 			lock (SyncRoot)
-				return module.Import(constructor);
+				return module.ImportReference(constructor);
 		}
 	}
 }

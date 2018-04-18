@@ -2,12 +2,11 @@
 // ReSharper disable once CheckNamespace
 namespace Mono.Cecil.Fluent
 {
-	public static partial class TyoeDefinitionExtensions
+	public static partial class TypeDefinitionExtensions
     {
         public static string GetDefaultMemberName(this TypeDefinition type)
         {
-            CustomAttribute attr;
-            return type.GetDefaultMemberName(out attr);
+            return type.GetDefaultMemberName(out var _);
         }
 
         public static string GetDefaultMemberName(this TypeDefinition type, out CustomAttribute defaultMemberAttribute)

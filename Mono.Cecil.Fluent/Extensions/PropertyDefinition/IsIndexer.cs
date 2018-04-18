@@ -7,8 +7,7 @@ namespace Mono.Cecil.Fluent
     {
 		public static bool IsIndexer(this PropertyDefinition property)
 		{
-			CustomAttribute attr;
-			return property.IsIndexer(out attr);
+			return property.IsIndexer(out var _);
 		}
 
 		public static bool IsIndexer(this PropertyDefinition property, out CustomAttribute defaultMemberAttribute)

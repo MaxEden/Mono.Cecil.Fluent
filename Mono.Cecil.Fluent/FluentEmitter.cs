@@ -1,5 +1,4 @@
-﻿using System.Reflection.Emit;
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using Mono.Collections.Generic;
 
@@ -40,13 +39,9 @@ namespace Mono.Cecil.Fluent
 		public Collection<VariableDefinition> Variables => MethodDefinition.Body.Variables;
 
         public StackValidationMode StackValidationMode = Config.DefaultStackValidationMode;
-	    
 
-		internal FluentEmitter(MethodDefinition methodDefinition)
-            :this(methodDefinition, AppendMode.Append, null)
-        { }
 
-	    internal FluentEmitter(MethodDefinition methodDefinition, AppendMode appendMode, Instruction lastInstruction)
+	    internal FluentEmitter(MethodDefinition methodDefinition, AppendMode appendMode = AppendMode.Append, Instruction lastInstruction = null)
 	    {
 	        MethodDefinition = methodDefinition;
 	        methodDefinition.Body.SimplifyMacros();
@@ -65,16 +60,13 @@ namespace Mono.Cecil.Fluent
 
         public FluentEmitter WithVariable(SystemTypeOrTypeReference varType, string name = null)
         {
-            var var = new VariableDefinition(varType.GetTypeReference(Module));
-            if (!string.IsNullOrEmpty(name))
-                var.Name = name;
-            Variables.Add(var);
+            MethodDefinition.WithVariable(varType, name, out var _);
             return this;
         }
 
         public FluentEmitter WithVariable<T>(string name = null)
         {
-            MethodDefinition.WithVariable(typeof(T), name);
+            MethodDefinition.WithVariable(typeof(T), name, out var _);
             return this;
         }
 
@@ -98,7 +90,7 @@ namespace Mono.Cecil.Fluent
 	        return MethodDefinition.DisassembleBody();
 	    }
 
-	    public DynamicMethod ToDynamicMethod()
+        public System.Reflection.Emit.DynamicMethod ToDynamicMethod()
 	    {
 	        return MethodDefinition.ToDynamicMethod();
 	    }

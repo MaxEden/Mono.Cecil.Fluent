@@ -6,7 +6,8 @@ namespace Mono.Cecil.Fluent.Attributes
     {
         FieldAttributes FieldAttributesValue { get; }
     }
-    public static partial class FieldDefinitionExtensions
+
+    public static class FieldDefinitionExtensions
     {
         public static FieldDefinition UnsetFieldAttributes(this FieldDefinition field, params FieldAttributes[] attributes)
         {
@@ -20,10 +21,7 @@ namespace Mono.Cecil.Fluent.Attributes
             field.Attributes = 0;
             return field;
         }
-    }
 
-    public static partial class FieldDefinitionExtensions
-	{
 		public static FieldDefinition SetFieldAttributes(this FieldDefinition field, params FieldAttributes[] attributes)
 		{
 			foreach (var attribute in attributes)
