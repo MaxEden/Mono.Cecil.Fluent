@@ -37,18 +37,27 @@ namespace Mono.Cecil.Fluent
         public FluentEmitter NewObj(SystemTypeOrTypeReference type, params SystemTypeOrTypeReference[] paramtypes)
         {
             // todo: generic and base constructors don't work currently
-       
             // todo: newobj for primitives should emit initobj and not throw any exception
-            if(type.GetTypeReference(Module).IsPrimitive)
+
+            var typeRef = type.GetTypeReference(Module);
+            var typeDef = typeRef.Resolve();
+
+            if (typeRef.IsPrimitive)
                 throw new Exception("primitive value types like int, bool, long .. don't have a constructor. newobj instruction not possible");
 
-            var constructors = type.GetTypeReference(Module).Resolve().GetConstructors()
+            var constructors = typeRef.Resolve().GetConstructors()
                 .Where(c => AreParameterListsEqual(c.Parameters.Select(p => p.ParameterType), paramtypes.Select(p => p.GetTypeReference(Module)))).ToList();
 
             if(constructors.Count() != 1)
                 throw new Exception("Can not find constructor"); // todo: better exception info, ncrunch: no coverage
 
-            return Emit(OpCodes.Newobj, constructors.First());
+            MethodReference ctor = constructors.First();
+            if (typeRef is GenericInstanceType genRef)
+            {
+                ctor = ctor.MakeGeneric(genRef.GenericArguments.ToArray());
+            }
+
+            return Emit(OpCodes.Newobj, ctor);
         }
 
         public FluentEmitter NewObj(ConstructorInfo constructor)
