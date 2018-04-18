@@ -7,7 +7,7 @@ namespace Mono.Cecil.Fluent.Attributes
         PropertyAttributes PropertydAttributesValue { get; }
     }
 
-    public static partial class PropertyDefinitionExtensions
+    public static class PropertyDefinitionExtensions
     {
         public static PropertyDefinition UnsetPropertyAttributes(this PropertyDefinition property, params PropertyAttributes[] attributes)
         {
@@ -20,10 +20,7 @@ namespace Mono.Cecil.Fluent.Attributes
             property.Attributes = 0;
             return property;
         }
-    }
 
-    public static partial class PropertyDefinitionExtensions
-	{
 		public static PropertyDefinition SetPropertyAttributes(this PropertyDefinition prop, params PropertyAttributes[] attributes)
 		{
 			foreach (var attribute in attributes)
