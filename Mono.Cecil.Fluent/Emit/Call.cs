@@ -7,7 +7,14 @@ namespace Mono.Cecil.Fluent
     {
         public FluentEmitter Call(MethodReference m)
         {
-            return Emit(OpCodes.Call, m);
+            if (m.Resolve().IsVirtual)
+            {
+                return Emit(OpCodes.Callvirt, m);
+            }
+            else
+            {
+                return Emit(OpCodes.Call, m);
+            }
         }
     }
 }
