@@ -65,6 +65,8 @@
     <Compile Include="Extensions\IMemberDefinition\Disassemble.cs" />
     <Compile Include="Extensions\IMemberDefinition\WithFieldInternal.cs" />
     <Compile Include="Extensions\MethodDefinition\DisassembleBody.cs" />
+    <Compile Include="Extensions\MethodDefinition\InstructionsAnalysis.cs" />
+    <Compile Include="Extensions\TypeDefinition\TypeQueries.cs" />
     <Compile Include="StackValidationMode.cs" />
     <Compile Include="Decompiler\Disassembler\DisassemblerHelper.cs" />
     <Compile Include="Decompiler\Disassembler\ILStructure.cs" />

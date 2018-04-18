@@ -101,5 +101,11 @@ namespace Mono.Cecil.Fluent
             // todo: something to do here? e.g. stack validation ..
 	        return MethodDefinition;
 	    }
-    }
+
+	    public FluentEmitter UnboxTo(TypeReference boxedType)
+	    {
+            Instruction.Create(OpCodes.Unbox_Any, boxedType);
+            return this;
+        }
+	}
 }
