@@ -35,6 +35,19 @@ namespace Mono.Cecil.Fluent
                    provider.CustomAttributes.Any(p => p.AttributeType.Name == typeof(T).Name);
         }
 
+        public static void AddAttribute<T>(this ICustomAttributeProvider provider, params object[] args)
+            where T : Attribute
+        {
+            if (provider is MemberReference memberReference)
+            {
+                AddAttribute<T>(provider, memberReference.Module, args);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
         public static void AddAttribute<T>(this ICustomAttributeProvider provider,
                                            ModuleDefinition              module,
                                            params object[]               args)
@@ -50,7 +63,7 @@ namespace Mono.Cecil.Fluent
                     ||
                     p.GetParameters()
                         .Select((info, i) => info.ParameterType.IsInstanceOfType(args[i])
-                        || (info.ParameterType == typeof(Type) && args[i] is TypeReference))
+                                             || (info.ParameterType == typeof(Type) && args[i] is TypeReference))
                         .All(x => x)));
 
             if (constructor == null) throw new ArgumentException();
