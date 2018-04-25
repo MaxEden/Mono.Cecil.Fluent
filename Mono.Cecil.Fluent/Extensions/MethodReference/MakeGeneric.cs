@@ -47,12 +47,25 @@ namespace Mono.Cecil.Fluent
         {
             var param = method.Parameters[index];
             var paramType = param.ParameterType;
+
             if (method is GenericInstanceMethod gMethod && paramType is GenericInstanceType gType)
             {
                 var newGType = new GenericInstanceType(gType.ElementType);
-                for (int i = 0; i < gMethod.GenericArguments.Count; i++)
+                foreach (var genericArgument in gType.GenericArguments)
                 {
-                    newGType.GenericArguments.Add(gMethod.GenericArguments[i]);
+                    var name = genericArgument.FullName;
+                    if (name.StartsWith("!!"))
+                    {
+                        var mIndex = int.Parse(name.Substring(2));
+                        newGType.GenericArguments.Add(gMethod.GenericArguments[mIndex]);
+                    }
+                    else if (name.StartsWith("!"))
+                    {
+                        var tIndex = int.Parse(name.Substring(1));
+                        var decType = (GenericInstanceType)gMethod.DeclaringType;
+
+                        newGType.GenericArguments.Add(decType.GenericArguments[tIndex]);
+                    }
                 }
 
                 return newGType;
