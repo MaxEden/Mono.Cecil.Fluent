@@ -37,6 +37,16 @@ namespace Mono.Cecil.Fluent
         {
             return new FluentEmitter(method, AppendMode.Insert, instruction.Previous);
         }
+
+        public static FluentEmitter InsertILTail(this MethodDefinition method)
+        {
+            return InsertILBefore(method, method.LastRet());
+        }
+
+        public static FluentEmitter InsertILHead(this MethodDefinition method)
+        {
+            return InsertILBefore(method, p=> p[0]);
+        }
     }
 
     public enum AppendMode
