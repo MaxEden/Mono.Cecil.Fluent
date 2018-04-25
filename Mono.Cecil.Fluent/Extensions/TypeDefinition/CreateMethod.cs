@@ -1,4 +1,7 @@
-﻿using Mono.Cecil.Fluent.Utils;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using Mono.Cecil.Fluent.Utils;
 using Mono.Cecil.Rocks;
 
 // ReSharper disable InconsistentNaming
@@ -50,5 +53,41 @@ namespace Mono.Cecil.Fluent
             return staticCtor;
         }
 
+	    public static void ImplementInterface<T>(this TypeDefinition type, bool explicitly)
+	    {
+	        var interfaceRef = type.Module.SafeImport<T>();
+	        if (type.Interfaces.Any(p => p.InterfaceType.FullName == interfaceRef.FullName)) return;
+
+	        type.Interfaces.Add(new InterfaceImplementation(interfaceRef));
+
+	        var interfaceDef = interfaceRef.Resolve();
+	        foreach (var method in interfaceDef.Methods.Select(p=>type.Module.ImportReference(p)))
+	        {
+	            var methodRef = type.Module.ImportReference(method);
+	            var name = method.Name;
+	            if (explicitly) name = interfaceRef.FullName + "." + name;
+
+	            if (type.Methods.Any(p => p.Name == name)) continue; //TODO compare by signature
+
+	            var typeMethod = type.CreateMethod(name, method.ReturnType, method.Resolve().Attributes);
+	            typeMethod.IsAbstract = false;
+	            typeMethod.Parameters.AddRange(method.Parameters);
+
+	            if (explicitly) typeMethod.Overrides.Add(method);
+	        }
+	    }
+
+	    public static MethodDefinition GetMethod<T>(this TypeDefinition type, Expression<Action<T>> expression)
+	    {
+	        var refMethod = type.Module.SafeImport(expression);
+	        if (refMethod.DeclaringType.FullName != type.FullName)
+	        {
+	            return type.Methods.FirstOrDefault(p => p.Overrides.Any(x=>x.FullName == refMethod.FullName));
+	        }
+
+	        return refMethod.Resolve();
+	    }
     }
+
+
 }
