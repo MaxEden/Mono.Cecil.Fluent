@@ -121,7 +121,10 @@ namespace Mono.Cecil.Fluent
 
         public static Instruction LastRet(this MethodDefinition self)
         {
-            if (self.Body.Instructions.Count == 0) return null;
+            if (self.Body.Instructions.Count == 0)
+            {
+                self.AppendIL().Ret();
+            }
             return self.Body.Instructions.LastOrDefault(p => p.OpCode == OpCodes.Ret);
         }
     }
