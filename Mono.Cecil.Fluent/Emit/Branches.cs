@@ -98,27 +98,23 @@ namespace Mono.Cecil.Fluent
 				return this;
 			}
 
-			var firstinstructionafterblock = LastEmittedInstruction.Next;
-			if(firstinstructionafterblock == null)
-			{
-				Nop();
-				firstinstructionafterblock = LastEmittedInstruction;
-			}
+		    Nop();
+			var firstInstructionAfterBlock = LastEmittedInstruction;
 
 			if(block.IsDoublePop)
 				Body.GetILProcessor().Remove(block.StartInstruction?.Next);
-
-			var newstartinstruction = Instruction.Create(block.OpCode, firstinstructionafterblock);
+            
+			var newstartinstruction = Instruction.Create(block.OpCode, firstInstructionAfterBlock);
 			Body.GetILProcessor().Replace(block.StartInstruction, newstartinstruction);
 
 			// remove Nops
 			Func<FluentEmitter, bool> postemitaction = (body) =>
 			{
-				if (firstinstructionafterblock.Next == null)
+				if (firstInstructionAfterBlock.Next == null)
 					return false;
-				foreach (var instruction in body.Body.Instructions.Where(i => i.Operand == firstinstructionafterblock))
-					instruction.Operand = firstinstructionafterblock.Next;
-				Body.GetILProcessor().Remove(firstinstructionafterblock);
+				foreach (var instruction in body.Body.Instructions.Where(i => i.Operand == firstInstructionAfterBlock))
+					instruction.Operand = firstInstructionAfterBlock.Next;
+				Body.GetILProcessor().Remove(firstInstructionAfterBlock);
 				return true;
 			};
 
