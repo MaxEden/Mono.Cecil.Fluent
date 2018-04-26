@@ -89,12 +89,7 @@ namespace Mono.Cecil.Fluent
 	    {
 	        return MethodDefinition.DisassembleBody();
 	    }
-
-        public System.Reflection.Emit.DynamicMethod ToDynamicMethod()
-	    {
-	        return MethodDefinition.ToDynamicMethod();
-	    }
-
+        
 	    public MethodDefinition EndEmitting()
 	    {
             MethodDefinition.Body.OptimizeMacros();

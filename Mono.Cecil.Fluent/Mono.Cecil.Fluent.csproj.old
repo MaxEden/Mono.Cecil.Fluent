@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0FC8139A-687C-400E-A52D-CD4FE30C616D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mono.Cecil.Fluent</RootNamespace>
+    <AssemblyName>Mono.Cecil.Fluent</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;__DEMO__,__DEMO_EXPERIMENTAL__</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>C:\GITS\GitGames\KartProject Dos\RainMagic\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>C:\GITS\GitGames\KartProject Dos\RainMagic\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>C:\GITS\GitGames\KartProject Dos\RainMagic\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>C:\GITS\GitGames\KartProject Dos\RainMagic\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Should.Fluent, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\GITS\KartProject Dos\RainMagic\packages\ShouldFluent.1.1.19\lib\Should.Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.CecilTools">
+      <HintPath>..\..\..\Program Files\Unity\Editor\Data\Managed\Unity.CecilTools.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Extensions\IMemberDefinition\Disassemble.cs" />
+    <Compile Include="Extensions\IMemberDefinition\WithFieldInternal.cs" />
+    <Compile Include="Extensions\MethodDefinition\DisassembleBody.cs" />
+    <Compile Include="Extensions\MethodDefinition\InstructionsAnalysis.cs" />
+    <Compile Include="Extensions\TypeDefinition\TypeQueries.cs" />
+    <Compile Include="StackValidationMode.cs" />
+    <Compile Include="Decompiler\Disassembler\DisassemblerHelper.cs" />
+    <Compile Include="Decompiler\Disassembler\ILStructure.cs" />
+    <Compile Include="Decompiler\Disassembler\MethodBodyDisassembler.cs" />
+    <Compile Include="Decompiler\Disassembler\ReflectionDisassembler.cs" />
+    <Compile Include="Decompiler\OpCodeInfo.cs" />
+    <Compile Include="Decompiler\PlainTextOutputWriter.cs" />
+    <Compile Include="Decompiler\Extensions\ComputeOffsets.cs" />
+    <Compile Include="Decompiler\Extensions\ComputeStackSize.cs" />
+    <Compile Include="Emit\Branches.cs" />
+    <Compile Include="Emit\Call.cs" />
+    <Compile Include="Emit\NewObj.cs" />
+    <Compile Include="Emit\Parameters.cs" />
+    <Compile Include="Extensions\Attributes.cs" />
+    <Compile Include="Extensions\EventDefinition\EventAttributes.cs" />
+    <Compile Include="Extensions\ICustomAttributeProvider\IsCompilerGenerated.cs" />
+    <Compile Include="Extensions\IMethodSignature\HasImplicitThis.cs" />
+    <Compile Include="Extensions\MethodBody\Disassemble.cs" />
+    <Compile Include="Extensions\MethodDefinition\AppendIL.cs" />
+    <Compile Include="Extensions\MethodDefinition\Compile.cs" />
+    <Compile Include="Extensions\MethodDefinition\Returns.cs" />
+    <Compile Include="Extensions\MethodReference\MakeGeneric.cs" />
+    <Compile Include="Extensions\OpCodes.cs" />
+    <Compile Include="Extensions\PropertyDefinition\IsIndexer.cs" />
+    <Compile Include="Extensions\PropertyDefinition\SetAttributes.cs" />
+    <Compile Include="Extensions\MethodDefinition\MethodAttributes.cs" />
+    <Compile Include="Extensions\MemberReference\SafeEquals.cs" />
+    <Compile Include="Extensions\TypeDefinition\GetDefaultMemberName.cs" />
+    <Compile Include="Extensions\TypeDefinition\TypeAttributes.cs" />
+    <Compile Include="Extensions\FieldDefinition\FieldAttributes.cs" />
+    <Compile Include="Extensions\IMemberDefinition\GetModule.cs" />
+    <Compile Include="Extensions\Misc.cs" />
+    <Compile Include="Extensions\TypeReference\IsVoid.cs" />
+    <Compile Include="Extensions\TypeReference\MakeGeneric.cs" />
+    <Compile Include="Extensions\TypeReference\SafeEquals.cs" />
+    <Compile Include="Helpers\SystemTypeOrTypeReference.cs" />
+    <Compile Include="Extensions\TypeDefinition\ToDynamic.cs" />
+    <Compile Include="Extensions\TypeDefinition\WithField.cs" />
+    <Compile Include="Extensions\MethodDefinition\WithParameter.cs" />
+    <Compile Include="Extensions\MethodDefinition\WithVariable.cs" />
+    <Compile Include="Extensions\ModuleDefinition\CreateType.cs" />
+    <Compile Include="Extensions\ModuleDefinition\SafeImport.cs" />
+    <Compile Include="Extensions\TypeDefinition\CreateMethod.cs" />
+    <Compile Include="FluentEmitter.Emit.cs" />
+    <Compile Include="FluentEmitter.cs" />
+    <Compile Include="Analyzer\CodePath.cs" />
+    <Compile Include="Analyzer\FlowControlAnalyzer.cs" />
+    <Compile Include="Analyzer\InstructionExtensions.cs" />
+    <Compile Include="ToDynamic\DynamicTypeBuilder.cs" />
+    <Compile Include="ToDynamic\ToDynamicMethod.cs" />
+    <Compile Include="Emit\BasicMath.cs" />
+    <Compile Include="Emit\Basics.cs" />
+    <Compile Include="Decompiler\Extensions\ComputeCodeSize.cs" />
+    <Compile Include="Emit\Conv.cs" />
+    <Compile Include="Emit\Ldc.cs" />
+    <Compile Include="Emit\Locals.cs" />
+    <Compile Include="Emit\Ret.cs" />
+    <Compile Include="Extensions\TypeReference\GetILType.cs" />
+    <Compile Include="Helpers\TypeLoader.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.I4.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.I8.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.R4.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.R8.cs" />
+    <Compile Include="MagicNumberArgument\MagicNumberArgument.Bool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Generate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

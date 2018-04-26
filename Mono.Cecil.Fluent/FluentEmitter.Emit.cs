@@ -49,8 +49,8 @@ namespace Mono.Cecil.Fluent
                 || StackValidationMode == StackValidationMode.OnReturn && instruction.OpCode != OpCodes.Ret)
                 return this;
 
-            var validator = new FlowControlAnalyzer(Body);
-		    validator.ValidateFullStackOrThrow();
+            //var validator = new FlowControlAnalyzer(Body);
+		    //validator.ValidateFullStackOrThrow();
 
 		    return this;
 		}
