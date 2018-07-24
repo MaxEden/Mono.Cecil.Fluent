@@ -3,6 +3,7 @@
 // ReSharper disable once CheckNamespace
 
 using System;
+using System.Linq;
 using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
 
@@ -45,6 +46,11 @@ namespace Mono.Cecil.Fluent
 
         public static FluentEmitter InsertILHead(this MethodDefinition method)
         {
+            if(method.Body.Instructions.Count == 0)
+            {
+                return AppendIL(method);
+            }
+
             return InsertILBefore(method, p=> p[0]);
         }
     }
