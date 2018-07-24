@@ -29,7 +29,7 @@ namespace Mono.Cecil.Fluent
             method.Body.Variables.Add(var);
             if (!string.IsNullOrEmpty(name))
             {
-                method.DebugInformation.Scope.Variables.Add(new VariableDebugInformation(var, name));
+                method.DebugInformation.Scope?.Variables.Add(new VariableDebugInformation(var, name));
             }
 
             return method;
