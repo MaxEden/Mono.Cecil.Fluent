@@ -16,7 +16,17 @@ namespace Mono.Cecil.Fluent
 			return Emit(OpCodes.Ldarg_0);
 		}
 
-	    internal ParameterDefinition GetParameter(string paramname)
+	    public FluentEmitter Ldfld(FieldReference fieldReference)
+	    {
+	        return Emit(OpCodes.Ldfld, fieldReference);
+	    }
+
+	    public FluentEmitter Stfld(FieldReference fieldReference)
+	    {
+	        return Emit(OpCodes.Stfld, fieldReference);
+	    }
+
+        internal ParameterDefinition GetParameter(string paramname)
 		{
 			if (string.IsNullOrEmpty(paramname))
 				throw new ArgumentException("paramname cannot be null or empty");
