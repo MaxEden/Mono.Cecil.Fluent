@@ -87,10 +87,10 @@ namespace Mono.Cecil.Fluent
 
                 TypeReference openType = null;
 
-                if (method.Parameters.Count == 1) openType = module.SafeImportOpen<Action<int>>();
-                else if (method.Parameters.Count == 2) openType = module.SafeImportOpen<Action<int, int>>();
-                else if (method.Parameters.Count == 3) openType = module.SafeImportOpen<Action<int, int, int>>();
-                else if (method.Parameters.Count == 4) openType = module.SafeImportOpen<Action<int, int, int, int>>();
+                if (method.Parameters.Count == 1) openType = module.SafeImportOpenGeneric<Action<int>>();
+                else if (method.Parameters.Count == 2) openType = module.SafeImportOpenGeneric<Action<int, int>>();
+                else if (method.Parameters.Count == 3) openType = module.SafeImportOpenGeneric<Action<int, int, int>>();
+                else if (method.Parameters.Count == 4) openType = module.SafeImportOpenGeneric<Action<int, int, int, int>>();
 
                 var instance = new GenericInstanceType(openType);
 
@@ -101,12 +101,12 @@ namespace Mono.Cecil.Fluent
             else
             {
                 TypeReference openType = null;
-                if (method.Parameters.Count == 0) openType = module.SafeImportOpen<Func<int>>();
+                if (method.Parameters.Count == 0) openType = module.SafeImportOpenGeneric<Func<int>>();
 
-                if (method.Parameters.Count == 1) openType = module.SafeImportOpen<Func<int, int>>();
-                if (method.Parameters.Count == 2) openType = module.SafeImportOpen<Func<int, int, int>>();
-                if (method.Parameters.Count == 3) openType = module.SafeImportOpen<Func<int, int, int, int>>();
-                if (method.Parameters.Count == 4) openType = module.SafeImportOpen<Func<int, int, int, int, int>>();
+                if (method.Parameters.Count == 1) openType = module.SafeImportOpenGeneric<Func<int, int>>();
+                if (method.Parameters.Count == 2) openType = module.SafeImportOpenGeneric<Func<int, int, int>>();
+                if (method.Parameters.Count == 3) openType = module.SafeImportOpenGeneric<Func<int, int, int, int>>();
+                if (method.Parameters.Count == 4) openType = module.SafeImportOpenGeneric<Func<int, int, int, int, int>>();
 
                 var instance = new GenericInstanceType(openType);
                 foreach (var argument in method.Parameters.Select(p => p.ParameterType))

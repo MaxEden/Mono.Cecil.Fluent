@@ -21,7 +21,7 @@ namespace Mono.Cecil.Fluent
 				return module.ImportReference(typeof(T));
 		}
 
-        public static TypeReference SafeImportOpen<T>(this ModuleDefinition module)
+        public static TypeReference SafeImportOpenGeneric<T>(this ModuleDefinition module)
         {
             lock (SyncRoot)
             {
@@ -32,7 +32,7 @@ namespace Mono.Cecil.Fluent
             }
         }
 
-        public static MethodReference SafeImportOpen<T>(this ModuleDefinition module, Expression<Action<T>> expression)
+        public static MethodReference SafeImportOpenGeneric<T>(this ModuleDefinition module, Expression<Action<T>> expression)
 	    {
 	        lock (SyncRoot)
 	        {
@@ -43,7 +43,7 @@ namespace Mono.Cecil.Fluent
 	        }
 	    }
 
-        public static MethodReference SafeImportOpen<T>(this ModuleDefinition module, Expression<Func<T, object>> expression)
+        public static MethodReference SafeImportOpenGeneric<T>(this ModuleDefinition module, Expression<Func<T, object>> expression)
         {
             lock (SyncRoot)
             {
