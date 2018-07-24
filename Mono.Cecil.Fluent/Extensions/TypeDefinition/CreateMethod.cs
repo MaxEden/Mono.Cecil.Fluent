@@ -56,6 +56,11 @@ namespace Mono.Cecil.Fluent
 	    public static void ImplementInterface<T>(this TypeDefinition type, bool explicitly)
 	    {
 	        var interfaceRef = type.Module.SafeImport<T>();
+	        ImplementInterface(type, interfaceRef, explicitly);
+	    }
+
+	    public static void ImplementInterface(this TypeDefinition type, TypeReference interfaceRef, bool explicitly)
+	    {
 	        if (type.Interfaces.Any(p => p.InterfaceType.FullName == interfaceRef.FullName)) return;
 
 	        type.Interfaces.Add(new InterfaceImplementation(interfaceRef));
