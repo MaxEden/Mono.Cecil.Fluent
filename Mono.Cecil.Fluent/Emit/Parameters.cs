@@ -21,7 +21,12 @@ namespace Mono.Cecil.Fluent
 	        return Emit(OpCodes.Ldfld, fieldReference);
 	    }
 
-	    public FluentEmitter Stfld(FieldReference fieldReference)
+	    public FluentEmitter Box(TypeReference typeReference)
+	    {
+	        return Emit(OpCodes.Box, typeReference);
+	    }
+
+        public FluentEmitter Stfld(FieldReference fieldReference)
 	    {
 	        return Emit(OpCodes.Stfld, fieldReference);
 	    }
