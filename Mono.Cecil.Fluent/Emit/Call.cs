@@ -24,18 +24,19 @@ namespace Mono.Cecil.Fluent
             var opEquality = type.Methods.FirstOrDefault(p => p.Name == "op_Equality");
             var objEquals = Module.SafeImport<object>(p => Object.Equals(null, null)).Resolve();
 
-            if (opEquality != null)
-            {
-                Call(opEquality);
-            }
-            else if (type.IsStruct())
-            {
-                Call(objEquals);
-            }
-            else
-            {
-                Emit(OpCodes.Ceq);
-            }
+            //if (opEquality != null)
+            //{
+            //    Call(opEquality);
+            //}
+            //else
+            //if (type.IsStruct())
+            //{
+            Call(objEquals);
+            //}
+            //else
+            //{
+            //    Emit(OpCodes.Ceq);
+            //}
 
             return this;
         }
