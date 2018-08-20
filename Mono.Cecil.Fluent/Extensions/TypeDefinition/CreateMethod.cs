@@ -61,6 +61,11 @@ namespace Mono.Cecil.Fluent
 
 	    public static void ImplementInterface(this TypeDefinition type, TypeReference interfaceRef, bool explicitly)
 	    {
+	        if(type.IsInterface)
+	        {
+	            throw new ArgumentException(type + " is an interface");
+	        }
+
 	        if (type.Interfaces.Any(p => p.InterfaceType.FullName == interfaceRef.FullName)) return;
 
 	        type.Interfaces.Add(new InterfaceImplementation(interfaceRef));
