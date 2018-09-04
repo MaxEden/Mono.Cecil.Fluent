@@ -46,7 +46,7 @@ namespace Mono.Cecil.Fluent
 
         public static FluentEmitter InsertILHead(this MethodDefinition method)
         {
-            if(method.Body.Instructions.Count == 0)
+            if(method.Body== null || method.Body.Instructions.Count == 0)
             {
                 return AppendIL(method);
             }
