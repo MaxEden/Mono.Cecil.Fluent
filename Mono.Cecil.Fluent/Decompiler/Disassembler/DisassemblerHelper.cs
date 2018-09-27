@@ -15,8 +15,10 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
+
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Mono.Cecil;
@@ -86,7 +88,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 		private static string ToInvariantCultureString(object value)
 		{
 			var convertible = value as IConvertible;
-			return convertible?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? value.ToString();
+			return convertible?.ToString(CultureInfo.InvariantCulture) ?? value.ToString();
 		}
 
 		public static void WriteTo(this MethodReference method, PlainTextOutput writer)
@@ -383,7 +385,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 				}
 				else
 				{
-					writer.Write(val.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+					writer.Write(val.ToString("R", CultureInfo.InvariantCulture));
 				}
 			}
 			else if (operand is double)
@@ -410,7 +412,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 				}
 				else
 				{
-					writer.Write(val.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+					writer.Write(val.ToString("R", CultureInfo.InvariantCulture));
 				}
 			}
 			else if (operand is bool)

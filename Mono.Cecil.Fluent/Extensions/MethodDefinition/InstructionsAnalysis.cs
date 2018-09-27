@@ -1,11 +1,9 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable once CheckNamespace
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mono.Cecil.Cil;
-using Mono.Collections.Generic;
 
 namespace Mono.Cecil.Fluent
 {

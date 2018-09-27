@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mono.Cecil.Cil;
 
 // ReSharper disable CheckNamespace
@@ -31,9 +32,9 @@ namespace Mono.Cecil.Fluent
 				int computedSize;
 				if (stackSizes != null && stackSizes.TryGetValue(instruction, out computedSize))
 					stackSize = computedSize;
-				maxStack = System.Math.Max(maxStack, stackSize);
+				maxStack = Math.Max(maxStack, stackSize);
 				ComputeStackDelta(instruction, ref stackSize);
-				maxStack = System.Math.Max(maxStack, stackSize);
+				maxStack = Math.Max(maxStack, stackSize);
 				CopyBranchStackSize(instruction, ref stackSizes, stackSize);
 				ComputeStackSize(instruction, ref stackSize);
 			}
@@ -99,7 +100,7 @@ namespace Mono.Cecil.Fluent
             var branchStackSize = stackSize;
 			int computedSize;
 			if (stackSizes.TryGetValue(target, out computedSize))
-				branchStackSize = System.Math.Max(branchStackSize, computedSize);
+				branchStackSize = Math.Max(branchStackSize, computedSize);
 			stackSizes[target] = branchStackSize;
 		}
 

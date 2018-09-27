@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-
-namespace Mono.Cecil.Fluent
+﻿namespace Mono.Cecil.Fluent
 {
 	public static partial class CecilExtensions
     {

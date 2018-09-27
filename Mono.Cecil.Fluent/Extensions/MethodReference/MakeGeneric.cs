@@ -3,7 +3,6 @@
 using System;
 using System.Linq;
 using Mono.Cecil.Cil;
-using Mono.Cecil.Rocks;
 
 namespace Mono.Cecil.Fluent
 {

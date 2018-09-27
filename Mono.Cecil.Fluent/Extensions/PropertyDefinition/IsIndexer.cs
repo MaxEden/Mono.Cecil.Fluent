@@ -42,5 +42,11 @@ namespace Mono.Cecil.Fluent
 			defaultMemberAttribute = attr;
 			return true;
 		}
+
+	    public static FieldDefinition GetBackingField(this PropertyDefinition property)
+	    {
+		    var backingField = property.DeclaringType.Fields.FirstOrDefault(p => p.Name == $"<{property.Name}>k__BackingField");
+		    return backingField;
+	    }
 	}
 }

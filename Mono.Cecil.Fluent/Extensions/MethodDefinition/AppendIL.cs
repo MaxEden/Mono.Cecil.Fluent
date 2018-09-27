@@ -3,7 +3,6 @@
 // ReSharper disable once CheckNamespace
 
 using System;
-using System.Linq;
 using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
 

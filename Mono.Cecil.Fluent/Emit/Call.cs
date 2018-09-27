@@ -22,7 +22,7 @@ namespace Mono.Cecil.Fluent
         public FluentEmitter EqualsCall(TypeDefinition type)
         {
             var opEquality = type.Methods.FirstOrDefault(p => p.Name == "op_Equality");
-            var objEquals = Module.SafeImport<object>(p => Object.Equals(null, null)).Resolve();
+            var objEquals = Module.SafeImport<object>(p => Equals(null, null)).Resolve();
 
             //if (opEquality != null)
             //{

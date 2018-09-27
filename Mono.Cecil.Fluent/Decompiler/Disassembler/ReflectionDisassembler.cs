@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Mono.Cecil;
@@ -955,7 +956,7 @@ namespace ICSharpCode.Decompiler.Disassembler
 				return _names.GetEnumerator();
 			}
 
-			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+			IEnumerator IEnumerable.GetEnumerator()
 			{
 				return _names.GetEnumerator();
 			}

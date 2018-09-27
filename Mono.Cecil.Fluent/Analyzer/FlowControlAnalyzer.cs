@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Mono.Cecil.Cil;
-using Mono.Cecil.Fluent.Utils;
 
 namespace Mono.Cecil.Fluent.Analyzer
 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Mono.Cecil;
 
 // ReSharper disable once CheckNamespace
 namespace Mono.Cecil.Fluent

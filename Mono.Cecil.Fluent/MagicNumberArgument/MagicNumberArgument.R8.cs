@@ -8,7 +8,7 @@ namespace Mono.Cecil.Fluent
 	{
 		internal readonly double Number;
 
-		internal override bool IsZero => double.IsNaN(Number) || System.Math.Abs(Number) < double.Epsilon;
+		internal override bool IsZero => double.IsNaN(Number) || Math.Abs(Number) < double.Epsilon;
 
 		internal MagicNumberArgumentR8(double num) : base(true, true, false)
 		{

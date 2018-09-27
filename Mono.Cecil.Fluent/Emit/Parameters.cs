@@ -28,6 +28,16 @@ namespace Mono.Cecil.Fluent
 
         public FluentEmitter Stfld(FieldReference fieldReference)
 	    {
+	        //if(fieldReference.FieldType.IsGenericParameter && 
+	        //   fieldReference.DeclaringType.HasGenericParameters &&
+	        //   !fieldReference.DeclaringType.IsGenericInstance)
+	        //{
+         //       var gType = new GenericInstanceType(fieldReference.DeclaringType);
+         //       gType.GenericArguments.Add(fieldReference.FieldType);
+
+	        //    var gField = gType.Resolve().Fields.FirstOrDefault(p => p.Name == fieldReference.Name);
+	        //    fieldReference = gField;
+	        //}
 	        return Emit(OpCodes.Stfld, fieldReference);
 	    }
 

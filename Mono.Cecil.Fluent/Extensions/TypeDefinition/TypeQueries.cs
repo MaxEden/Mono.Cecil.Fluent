@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 // ReSharper disable once CheckNamespace
 namespace Mono.Cecil.Fluent
