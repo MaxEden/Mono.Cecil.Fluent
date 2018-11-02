@@ -24,5 +24,21 @@ namespace Mono.Cecil.Fluent
 
             return result;
         }
+
+        public static List<MethodReference> GetUsedDelegates(this MethodDefinition method)
+        {
+            if (method?.Body?.Instructions == null || method.Body.Instructions.Count == 0)
+            {
+                return new List<MethodReference>();
+            }
+
+            var result = method.Body.Instructions
+                               .Where(i => i.OpCode == OpCodes.Ldftn)
+                               .Select(i => (MethodReference)i.Operand)
+                               .Distinct()
+                               .ToList();
+
+            return result;
+        }
     }
 }
