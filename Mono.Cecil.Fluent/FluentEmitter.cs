@@ -99,7 +99,7 @@ namespace Mono.Cecil.Fluent
 
 	    public FluentEmitter UnboxTo(TypeReference boxedType)
 	    {
-            Instruction.Create(OpCodes.Unbox_Any, boxedType);
+	        Emit(OpCodes.Unbox_Any, boxedType);
             return this;
         }
 	}
