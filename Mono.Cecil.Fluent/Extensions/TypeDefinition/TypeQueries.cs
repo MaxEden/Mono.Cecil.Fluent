@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Mono.Cecil.Rocks;
 
 // ReSharper disable once CheckNamespace
 namespace Mono.Cecil.Fluent
@@ -8,11 +9,24 @@ namespace Mono.Cecil.Fluent
 
         public static bool Implements<T>(this TypeReference type) where T : class
         {
-            return Implements(type.Resolve(), typeof(T).FullName);
+            return Implements(type, typeof(T).FullName);
         }
 
-        public static bool Implements(this TypeDefinition type, string interfaceFullName)
+        public static bool Implements(this TypeReference typeRef, string interfaceFullName)
         {
+            var type = typeRef as TypeDefinition;
+            if(type == null) type = typeRef.Resolve();
+
+            if(type == null && typeRef is GenericParameter genericParameter)
+            {
+                foreach(var constraint in genericParameter.Constraints)
+                {
+                    if(constraint.Implements(interfaceFullName)) return true;
+                }
+
+                return false;
+            }
+
             try
             {
                 if (type.HasInterfaces && type.Interfaces.Any(p => p.InterfaceType.FullName == interfaceFullName)) return true;
