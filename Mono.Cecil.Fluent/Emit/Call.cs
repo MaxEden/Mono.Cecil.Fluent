@@ -21,22 +21,34 @@ namespace Mono.Cecil.Fluent
 
         public FluentEmitter EqualsCall(TypeDefinition type)
         {
-            var opEquality = type.Methods.FirstOrDefault(p => p.Name == "op_Equality");
-            var objEquals = Module.SafeImport<object>(p => Equals(null, null)).Resolve();
 
-            //if (opEquality != null)
-            //{
-            //    Call(opEquality);
-            //}
-            //else
-            //if (type.IsStruct())
-            //{
-            Call(objEquals);
-            //}
-            //else
-            //{
-            //    Emit(OpCodes.Ceq);
-            //}
+            var objEquals = Module.SafeImport<object>(p => Equals(null, null)).Resolve();
+            if (type == null)
+            {
+                Call(objEquals);
+                return this;
+            }
+
+            var opEquality = type.Methods.FirstOrDefault(p => p.Name == "op_Equality");
+            if (type.IsPrimitive || type.IsEnum)
+            {
+                Emit(OpCodes.Ceq);
+            }
+            else
+            {
+                if (opEquality != null)
+                {
+                    Call(opEquality);
+                }
+                else if(!type.IsStruct())
+                {
+                    Call(objEquals);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
 
             return this;
         }
