@@ -39,6 +39,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Mono.Cecil" Version="0.10.0" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
   </ItemGroup>
 </Project>
